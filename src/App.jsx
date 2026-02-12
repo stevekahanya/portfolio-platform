@@ -1,7 +1,6 @@
 import { useState, useMemo } from 'react';
 import ProjectForm from './components/ProjectForm';
 import ProjectItem from './components/ProjectItem';
-import SearchBar from './components/SearchBar';
 
 function App() {
   const [projects, setProjects] = useState([
@@ -13,29 +12,43 @@ function App() {
 
   const filteredProjects = useMemo(() => {
     return projects.filter(p => 
-      p.title.toLowerCase().includes(query.toLowerCase())
+      p.title.toLowerCase().includes(query.toLowerCase()) || 
+      p.description.toLowerCase().includes(query.toLowerCase())
     );
   }, [projects, query]);
 
   return (
-    <div className="max-w-2xl mx-auto py-12 px-4">
-      <header className="text-center mb-10">
-        <h1 className="text-3xl font-black uppercase tracking-tight">Personal Project Showcase App</h1>
-      </header>
+    <div className="min-h-screen bg-white text-gray-900 font-sans p-4 md:p-8">
+      <div className="max-w-2xl mx-auto py-12">
+        <header className="text-center mb-10 border-b pb-6">
+          <h1 className="text-3xl font-black uppercase tracking-tight">Personal Project Showcase App</h1>
+        </header>
 
-      <ProjectForm onAddProject={addProject} />
+        {/* Form Component */}
+        <ProjectForm onAddProject={addProject} />
 
-      <div className="border border-gray-200 rounded-xl p-6">
-        <input 
-          type="text" 
-          placeholder="Search Projects..." 
-          className="w-full p-3 mb-6 border-b-2 outline-none focus:border-blue-500"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
-        
-        <div className="space-y-4">
-          {filteredProjects.map(p => <ProjectItem key={p.id} project={p} />)}
+        {/* Project List & Search Section */}
+        <div className="border border-gray-200 rounded-xl p-6 shadow-sm">
+          <input 
+            type="text" 
+            placeholder="Search Projects..." 
+            className="w-full p-3 mb-6 border-b-2 outline-none focus:border-blue-500 transition-colors"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+          
+          <div className="space-y-4">
+            {filteredProjects.length > 0 ? (
+              filteredProjects.map(p => (
+                <ProjectItem key={p.id} project={p} />
+              ))
+            ) : (
+              /* This is what your test was looking for! */
+              <p className="text-center text-gray-400 py-10 italic">
+                No projects found.
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </div>
