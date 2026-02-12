@@ -1,7 +1,7 @@
 export default function ProjectItem({ project }) {
   return (
-    <div className="group flex gap-5 p-5 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 items-center">
-      <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center rounded-xl shadow-inner shrink-0 group-hover:scale-110 transition-transform">
+    <div className="group flex gap-5 p-5 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 items-center">
+      <div className="w-14 h-14 bg-blue-600 flex items-center justify-center rounded-xl shadow-lg shrink-0 group-hover:rotate-6 transition-transform">
         <span className="text-white text-xl font-bold">
           {project.title.charAt(0).toUpperCase()}
         </span>
@@ -14,9 +14,9 @@ export default function ProjectItem({ project }) {
           {project.description}
         </p>
       </div>
-      <div className="hidden sm:block opacity-0 group-hover:opacity-100 transition-opacity">
-         <span className="text-blue-500 text-sm font-medium">View Project →</span>
-      </div>
+      <button className="opacity-0 group-hover:opacity-100 bg-gray-50 p-2 rounded-full hover:bg-red-50 hover:text-red-500 transition-all">
+        🗑️
+      </button>
     </div>
   );
 }
